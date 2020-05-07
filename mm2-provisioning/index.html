@@ -1,0 +1,1172 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.3">
+    
+    
+      
+        <title>MirrorMaker 2 Provisioning - Data Replication in context of Kafka and Event Streams</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.adb8469c.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.86422ebf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#mirror-maker-2-deployment" tabindex="0" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Data Replication in context of Kafka and Event Streams" aria-label="Data Replication in context of Kafka and Event Streams" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Data Replication in context of Kafka and Event Streams
+            </span>
+            <span class="md-header-nav__topic">
+              
+                MirrorMaker 2 Provisioning
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/ibm-cloud-architecture/refarch-eda-data-consistency.git/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="Data Replication in context of Kafka and Event Streams" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Data Replication in context of Kafka and Event Streams
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/ibm-cloud-architecture/refarch-eda-data-consistency.git/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Environment provisioning
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Environment provisioning
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dc-local/" title="Run local kafka cluster with docker compose" class="md-nav__link">
+      Run local kafka cluster with docker compose
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../provisioning/" title="Strimzi Kafka 2.4 Provisioning on Openshift" class="md-nav__link">
+      Strimzi Kafka 2.4 Provisioning on Openshift
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        MirrorMaker 2 Provisioning
+      </label>
+    
+    <a href="./" title="MirrorMaker 2 Provisioning" class="md-nav__link md-nav__link--active">
+      MirrorMaker 2 Provisioning
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#common-configuration" class="md-nav__link">
+    Common configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-using-strimzi-mirror-maker-operator" class="md-nav__link">
+    Deploying using Strimzi Mirror Maker operator
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mm2-topology" class="md-nav__link">
+    MM2 topology
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capacity-planning" class="md-nav__link">
+    Capacity planning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-migration" class="md-nav__link">
+    Version migration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-a-custom-mirrormaker-docker-image" class="md-nav__link">
+    Deploying a custom MirrorMaker docker image
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#define-the-monitoring-rules" class="md-nav__link">
+    Define the monitoring rules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-on-vm" class="md-nav__link">
+    Deploying on VM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-mirror-maker-2-on-its-own-project" class="md-nav__link">
+    Deploying Mirror Maker 2 on its own project
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provisioning-automation" class="md-nav__link">
+    Provisioning automation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typical-errors-in-mirror-maker-2-traces" class="md-nav__link">
+    Typical errors in Mirror Maker 2 traces
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-mm2-topics-manually" class="md-nav__link">
+    Create MM2 topics manually
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vm-provisioning/" title="VM MirrorMaker 2 provisioning" class="md-nav__link">
+      VM MirrorMaker 2 provisioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://ocp42.cloudpak8s.io/integration/cp4i-install/" title="Cloud Pak for integration provisioning" class="md-nav__link">
+      Cloud Pak for integration provisioning
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Replication Scenarios
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Replication Scenarios
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../local-to-es/" title="Replication from local to Event Streams" class="md-nav__link">
+      Replication from local to Event Streams
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../es-to-local/" title="Replication from Event Streams to local" class="md-nav__link">
+      Replication from Event Streams to local
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../es-prem-to-es/" title="From Event Streams on OpenShift to Event Streams on Cloud" class="md-nav__link">
+      From Event Streams on OpenShift to Event Streams on Cloud
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Best practices
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Best practices
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://ibm-cloud-architecture.github.io/refarch-eda/kafka/readme" title="Kafka Summary" class="md-nav__link">
+      Kafka Summary
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://ibm-cloud-architecture.github.io/refarch-eda/kafka/consumers" title="Consumer practices" class="md-nav__link">
+      Consumer practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://ibm-cloud-architecture.github.io/refarch-eda/kafka/producers" title="Producer practices" class="md-nav__link">
+      Producer practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://ibm-cloud-architecture.github.io/refarch-eda/kafka/connect" title="Kafka Connect" class="md-nav__link">
+      Kafka Connect
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../consideration/" title="Replicaton considerations" class="md-nav__link">
+      Replicaton considerations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Operations
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Operations
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../monitoring/" title="Monitoring with Prometheus and Grafana" class="md-nav__link">
+      Monitoring with Prometheus and Grafana
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../security/" title="Security" class="md-nav__link">
+      Security
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../perf-tests/" title="Tests" class="md-nav__link">
+      Tests
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../compendium/" title="Compendium" class="md-nav__link">
+      Compendium
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#common-configuration" class="md-nav__link">
+    Common configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-using-strimzi-mirror-maker-operator" class="md-nav__link">
+    Deploying using Strimzi Mirror Maker operator
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mm2-topology" class="md-nav__link">
+    MM2 topology
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capacity-planning" class="md-nav__link">
+    Capacity planning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-migration" class="md-nav__link">
+    Version migration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-a-custom-mirrormaker-docker-image" class="md-nav__link">
+    Deploying a custom MirrorMaker docker image
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#define-the-monitoring-rules" class="md-nav__link">
+    Define the monitoring rules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-on-vm" class="md-nav__link">
+    Deploying on VM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-mirror-maker-2-on-its-own-project" class="md-nav__link">
+    Deploying Mirror Maker 2 on its own project
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provisioning-automation" class="md-nav__link">
+    Provisioning automation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typical-errors-in-mirror-maker-2-traces" class="md-nav__link">
+    Typical errors in Mirror Maker 2 traces
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-mm2-topics-manually" class="md-nav__link">
+    Create MM2 topics manually
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/ibm-cloud-architecture/refarch-eda-data-consistency.git/edit/master/docs/mm2-provisioning.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="mirror-maker-2-deployment">Mirror Maker 2 Deployment</h1>
+<p>In this article we are presenting different type of Mirror Maker 2 deployments. Updated 4/4 on Strimzi version 0.17.</p>
+<ul>
+<li>Using Strimzi operator to deploy on Kubernetes</li>
+<li>To run MM2 on a VM or as docker image which can be adapted with your own configuration, like for example by adding prometheus JMX Exporter as java agent.</li>
+</ul>
+<p>We are using the configuration to deploy from event streams on Cloud to a local Kafka cluster we deployed using Strimzi.</p>
+<p><img alt="ES to local" src="../images/mm2-test1.png" /></p>
+<h2 id="common-configuration">Common configuration</h2>
+<p>When we need to create Kubernetes <code>Secrets</code> to manage APIKEY to access Event Streams, and TLS certificate to access local Kafka brokers, we need to do the following steps:</p>
+<ul>
+<li>Create a project in OpenShift to deploy Mirror Maker cluster, for example: <code>oc new-project &lt;projectname&gt;</code>.</li>
+<li>Create a secret for the API KEY of the Event Streams cluster:
+<code>oc create secret generic es-api-secret --from-literal=password=&lt;replace-with-event-streams-apikey&gt;</code></li>
+<li>
+<p>As your vanilla Kafka source cluster may use TLS to communicate between clients and brokers, you need to use the k8s secret defined when deploying Kafka which includes the CAroot and generic client certificates. These secrets are : <code>eda-demo-24-cluster-clients-ca-cert</code> and  <code>eda-demo-24-cluster-cluster-ca-cert</code>.</p>
+</li>
+<li>
+<p>Get the host ip address from the Route resource</p>
+<div class="codehilite"><pre><span></span><code>oc get routes my-cluster-kafka-bootstrap -o<span class="o">=</span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.ingress[0].host}{&quot;\n&quot;}&#39;</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Get the TLS CA root certificate from the broker</p>
+<div class="codehilite"><pre><span></span><code>oc get secrets
+oc extract secret/eda-demo-24-cluster-cluster-ca-cert --keys<span class="o">=</span>ca.crt --to<span class="o">=</span>- &gt; ca.crt
+oc extract secret/eda-demo-24-cluster-clients-ca-cert --keys<span class="o">=</span>ca.crt --to<span class="o">=</span>- &gt;&gt; ca.crt
+</code></pre></div>
+
+</li>
+<li>
+<p>Transform the certificates for java truststore</p>
+<div class="codehilite"><pre><span></span><code>keytool -import -trustcacerts -alias root -file ca.crt -keystore truststore.jks -storepass password -noprompt
+</code></pre></div>
+
+</li>
+<li>
+<p>Create a secret from truststore file so it can be mounted as needed into consumer or producer running in the same OpenShift cluster. </p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>oc create secret generic kafka-truststore --from-file<span class="o">=</span>./truststore.jks
+</code></pre></div>
+
+<h2 id="deploying-using-strimzi-mirror-maker-operator">Deploying using Strimzi Mirror Maker operator</h2>
+<p>We assume you have an existing namespace or project to deploy Mirror Maker. You also need to get the latest (0.17-rc4 at least) Strimzi configuration from the <a href="https://github.com/strimzi/strimzi-kafka-operator/releases/tag/0.17.0-rc4">download page</a>.</p>
+<p>If you have already installed Strimzi Operators, Cluster Roles, and CRDs, you do not need to do it again as those resources are defined at the kubernetes cluster level. See the <a href="../provisioning/">provisioning note.</a></p>
+<ul>
+<li>Define source and target cluster properties in mirror maker 2.0 <code>es-to-kafka-mm2.yml</code> descriptor file. Here is the file for the replication between Event Streams and local cluster <a href="https://github.com/jbcodeforce/kp-data-replication/blob/master/mirror-maker-2/es-cluster/es-to-kafka-mm2.yml">es-to-kafka-mm2.yml</a>. We strongly recommend to study the schema definition of this <a href="https://github.com/strimzi/strimzi-kafka-operator/blob/2d35bfcd99295bef8ee98de9d8b3c86cb33e5842/install/cluster-operator/048-Crd-kafkamirrormaker2.yaml#L648-L663">custom resource from this page</a>. </li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>connectCluster</code> attribute defines the cluster alias used for Kafka Connect, it must match a cluster in the list at <code>spec.clusters</code>.
+The config part can match the Kafka configuration for consumer or producer, except properties starting by ssl, sasl, security, listeners, rest, bootstarp.servers which are declared at the cluster definition level. </p>
+</div>
+<div class="codehilite"><pre><span></span><code>  <span class="nt">alias</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">event-streams-wdc-as-target</span>
+    <span class="l l-Scalar l-Scalar-Plain">bootstrapServers</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">broker-3...</span>
+    <span class="l l-Scalar l-Scalar-Plain">tls</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{}</span>
+    <span class="nt">authentication</span><span class="p">:</span>
+      <span class="nt">passwordSecret</span><span class="p">:</span>
+          <span class="nt">secretName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">es-api-secret</span>  
+          <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">password</span>
+      <span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">token</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">plain</span>
+</code></pre></div>
+
+<p>The example above use a secret to get the Event Streams API KEY, which as create with a command like: <code>oc create secret generic es-api-secret --from-literal=password=&lt;replace with ES key&gt;</code></p>
+<ul>
+<li>Deploy Mirror maker 2.0 within your project.</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>oc apply -f es-to-kafka-mm2.yml
+</code></pre></div>
+
+<p>This commmand creates a kubernetes deployment as illustrated below, with one pod as the replicas is set to 1. If we need to add parallel processing because of the topics to replicate have multiple partitions, or there are a lot of topics to replicate, then adding pods will help to scale horizontally. The pods are in the same consumer group, so Kafka Brokers will do the partition rebalancing among those new added consumers.</p>
+<p><img alt="Mirror maker deployment" src="../images/mm2-deployment.png" /></p>
+<p>Now with this deployment we can test consumer and producer as described <a href="es-to-local/#scenario-4-from-event-streams-on-cloud-to-strimzi-cluster-on-openshift">in the scenario 4</a>.</p>
+<h2 id="mm2-topology">MM2 topology</h2>
+<p>In this section we want to address horizontal scalability and how to organize the MirrorMaker 2 topology for multi tenancy. The simplest approach is to use one MirrorMaker instance per familly of topics: the classification of familly of topic can be anything, from line of business, to team, to application. Suppose an application is using 1000 topic - partitions, for data replication it may make sense to have one MM2 instance for this application responsible to manage the topics replication. The configuration will define the groupId to match the application name for example.</p>
+<p>The following diagram illustrates this kind of topology by using regular expression on the topic white list selection, there are three MirrorMaker 2 instances mirroring the different topics with name starting with <code>topic-name-A*, topic-name-B*, topic-name-C*,</code> respectively.</p>
+<p><img alt="" src="../images/mm2-topology.png" /></p>
+<p>Each connect instance is a JVM workers that replicate the topic/parititions and has different group.id.</p>
+<p>For Bi-directional replication for the same topic name, MirrorMaker 2 will use the cluster name as prefix. With MM2 we do not need to have 2 clusters but only one and bidirectional definitions. The following example is showing the configuration for a MM2 bidirectional settings, with <code>accounts</code> topic to be replicated on both cluster:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">apiVersion</span><span class="o">:</span> <span class="n">kafka</span><span class="o">.</span><span class="na">strimzi</span><span class="o">.</span><span class="na">io</span><span class="o">/</span><span class="n">v1alpha1</span>
+<span class="n">kind</span><span class="o">:</span> <span class="n">KafkaMirrorMaker2</span>
+<span class="o">...</span>
+ <span class="n">mirrors</span><span class="o">:</span>
+  <span class="o">-</span> <span class="n">sourceCluster</span><span class="o">:</span> <span class="s2">&quot;event-streams-wdc&quot;</span>
+    <span class="n">targetCluster</span><span class="o">:</span> <span class="s2">&quot;kafka-on-premise&quot;</span>
+    <span class="o">...</span>
+    <span class="n">topicsPattern</span><span class="o">:</span> <span class="s2">&quot;accounts,orders&quot;</span>
+  <span class="o">-</span> <span class="n">sourceCluster</span><span class="o">:</span> <span class="s2">&quot;kafka-on-premise&quot;</span>
+    <span class="n">targetCluster</span><span class="o">:</span> <span class="s2">&quot;event-streams-wdc&quot;</span>
+    <span class="o">...</span>
+    <span class="n">topicsPattern</span><span class="o">:</span> <span class="s2">&quot;accounts,customers&quot;</span>
+</code></pre></div>
+
+<h2 id="capacity-planning">Capacity planning</h2>
+<p>To address capacity planning, we need to review some characteristic of the Kafka Connect framework: For each topic/partition there will be a task running. We can see in the trace that tasks are mapped to threads inside the JVM. So the parallelism will be bound by the number of CPUs the JVM runs on. The parameters <code>max.tasks</code> specifies the max parallel processing we can have per JVM. So for each Topic we need to assess the number of partitions to be replicated. Each task is using the consumer API and is part of the same consumer group, the partition within a group are balanced by an internal controler. With Kafka connect any changes to the topic topology triggers a partition rebalancing. In MM2 each consumer / task is assigned a partition by the controller. So the rebalancing is done internally. Still adding a broker node into the cluster will generate rebalancing.</p>
+<p>The task processing is stateless, consume - produce wait for acknowledge,  commit offet. In this case the CPU and network are key. For platform tuning activity we need to monitor operating system performance metrics. If the CPU becomes the bottleneck, we can allocate more CPU or start to scale horizontally by adding mirror maker 2 instance. If the network at the server level is the bottleneck, then adding more servers will help. Kafka will automatically balance the load among all the tasks running on all the machines. The size of the message impacts also the throughtput as with small message the throughput is CPU bounded. With 100 bytes messages or more we can observe network saturation. </p>
+<p>The parameters to consider for sizing are the following:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number of topic/ partition</td>
+<td>Each task processes one partition</td>
+<td>For pure parallel processing max.tasks is the number of CPU</td>
+</tr>
+<tr>
+<td>Record size</td>
+<td>Size of the message in each partition in average</td>
+<td>Memory usage and Throughput: the # of records/s descrease when size increase, while MB/s throughput increases in logarithmic</td>
+</tr>
+<tr>
+<td>Expected input throughput</td>
+<td>The producer writing to the source topic throughput</td>
+<td>Be sure the consumers inside MM2 absorb the demand</td>
+</tr>
+<tr>
+<td>Network latency</td>
+<td></td>
+<td>This is where positioning MM2 close to the target cluster may help improve latency</td>
+</tr>
+</tbody>
+</table>
+<h2 id="version-migration">Version migration</h2>
+<p>Once the MirrorMaker cluster is up and running, it may be needed to update the underlying code when a new product version is released. Based on Kafka Connect distributed mode multiple workers JVM coordinate the topic / partition repartition among themselves via Kafka topic.  If a worker process dies, the cluster is rebalanced to distribute the work fairly over the remaining workers.
+If a new worker starts work, a rebalance ensures it takes over some work from the existing workers.</p>
+<p>Using the REST API it is possible to stop and restart a connector. As of now the recommendation is to start a new MirrorMaker instance with the new version and the same groupId as the existing workers you want to migrate. Then stop the existing version. As each MirrorMaker workers are part of the same group, the internal worker controller will coordinate with the other workers the  'consumer' task to partition assignment.</p>
+<p>We have presentate a similar approach in <a href="vm-provisioning/#restarting-mirrormaker-2">this section</a>, where we tested that each instance of MirrorMaker 2 could assume the replication.  First we will stop the Node 1 instance, upgrade it to the latest version, then start it again.  Then we’ll repeat the same procedure on Node 2.  We’ll continue to watch the Consumer VM window to note that replication should not stop at any point.</p>
+<p><img alt="" src="../images/mm2-v2v-1.png" /></p>
+<p>We’ve now upgraded to Kafka 2.5 including the latest MirrorMaker 2.  Meanwhile, replication was uninterrupted due to the second instance of MirrorMaker 2:</p>
+<p><img alt="" src="../images/mm2-v2v-2.png" /></p>
+<p>Now we’ll restart the Node 1 instance of MirrorMaker 2, stop the Node 2 instance, we can still see replication occurring on the upgraded Node 1 instance of MirrorMaker 2. </p>
+<p><img alt="" src="../images/mm2-v2v-3.png" /></p>
+<p>We upgrade Node 2’s instance of MirrorMaker 2 exactly as on Node 1, and start it again, and once again, replication is still going.</p>
+<p><img alt="" src="../images/mm2-v2v-4.png" /></p>
+<p>When using Strimzi, if the update applies to the MM2 Custom Resource Definition, just reapplying the CRD should be enough.</p>
+<p>Be sure to verify the product documentation as new version may enforce to have new topics. It was the case when Kafka connect added the config topic in a recent version.</p>
+<h2 id="deploying-a-custom-mirrormaker-docker-image">Deploying a custom MirrorMaker docker image</h2>
+<p>We want to use custom docker image when we want to add Prometheus JMX exporter as Java Agent so we can monitor MM2 with Prometheus. The proposed docker file is <a href="https://github.com/jbcodeforce/kp-data-replication/blob/master/mirror-maker-2/Dockerfile">in this folder</a> and may look like:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">FROM</span> <span class="s">strimzi/kafka:latest-kafka-2.4.0</span>
+<span class="c"># ...</span>
+<span class="k">ENV</span> <span class="nv">LOG_DIR</span><span class="o">=</span>/tmp/logs
+<span class="k">ENV</span> <span class="nv">EXTRA_ARGS</span><span class="o">=</span><span class="s2">&quot;-javaagent:/usr/local/share/jars/jmx_prometheus_javaagent-0.12.0.jar=9400:/etc/jmx_exporter/jmx_exporter.yaml &quot;</span>
+
+<span class="c"># ....</span>
+<span class="k">EXPOSE</span><span class="s"> 9400</span>
+
+<span class="k">CMD</span> /opt/kafka/bin/connect-mirror-maker.sh  /home/mm2.properties
+</code></pre></div>
+
+<p>As the mirror maker 2 is using properties file, we want to define source and target cluster and the security settings for both clusters. As the goal is to run within the same OpenShift cluster as Kafka, the broker list for the source matches the URL within the broker service:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># get the service URL</span>
+oc describe svc my-cluster-kafka-bootstrap
+<span class="c1"># URL my-cluster-kafka-bootstrap:9092</span>
+</code></pre></div>
+
+<p>The target cluster uses the bootstrap servers from the Event Streams Credentials, and the API KEY is defined with the manager role, so mirror maker can create topic dynamically.</p>
+<p>Properties template file can be seen <a href="https://github.com/jbcodeforce/kp-data-replication/blob/master/mirror-maker-2/local-cluster/kafka-to-es-mm2.properties">here: kafka-to-es-mm2</a></p>
+<div class="codehilite"><pre><span></span><code><span class="na">clusters</span><span class="o">=</span><span class="s">source, target</span>
+<span class="na">source.bootstrap.servers</span><span class="o">=</span><span class="s">eda-demo-24-cluster-kafka-bootstrap:9092</span>
+<span class="na">source.ssl.endpoint.identification.algorithm</span><span class="o">=</span>
+<span class="na">target.bootstrap.servers</span><span class="o">=</span><span class="s">broker-3-h6s2xk6b2t77g4p1.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-1-h6s2xk6b2t77g4p1.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-0-h6s2xk6b2t77g4p1.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-5-h6s2xk6b2t77g4p1.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-2-h6s2xk6b2t77g4p1.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-4-h6s2xk6b2t77g4p1.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093</span>
+<span class="na">target.security.protocol</span><span class="o">=</span><span class="s">SASL_SSL</span>
+<span class="na">target.ssl.protocol</span><span class="o">=</span><span class="s">TLSv1.2</span>
+<span class="na">target.ssl.endpoint.identification.algorithm</span><span class="o">=</span><span class="s">https</span>
+<span class="na">target.sasl.mechanism</span><span class="o">=</span><span class="s">PLAIN</span>
+<span class="na">target.sasl.jaas.config</span><span class="o">=</span><span class="s">org.apache.kafka.common.security.plain.PlainLoginModule required </span>
+<span class="na">username</span><span class="o">=</span><span class="s">&quot;token&quot; password=&quot;&lt;Manager API KEY from Event Streams&gt;&quot;;</span>
+<span class="c"># enable and configure individual replication flows</span>
+<span class="na">source-&gt;target.enabled</span><span class="o">=</span><span class="s">true</span>
+<span class="na">sync.topic.acls.enabled</span><span class="o">=</span><span class="s">false</span>
+<span class="na">replication.factor</span><span class="o">=</span><span class="s">3</span>
+<span class="na">internal.topic.replication.factor</span><span class="o">=</span><span class="s">3</span>
+<span class="na">refresh.topics.interval.seconds</span><span class="o">=</span><span class="s">10</span>
+<span class="na">refresh.groups.interval.seconds</span><span class="o">=</span><span class="s">10</span>
+<span class="na">source-&gt;target.topics</span><span class="o">=</span><span class="s">products</span>
+<span class="na">tasks.max</span><span class="o">=</span><span class="s">10</span>
+</code></pre></div>
+
+<p>Upload the properties as a secret</p>
+<div class="codehilite"><pre><span></span><code>oc create secret generic mm2-std-properties --from-file<span class="o">=</span>es-cluster/mm2.properties
+</code></pre></div>
+
+<p>The file could be copied inside the docker image or better mounted from a secret when deployed to kubernetes.</p>
+<p>Build and push the image to a docker registry.</p>
+<div class="codehilite"><pre><span></span><code>docker build -t ibmcase/mm2ocp:v0.0.2  .
+docker push ibmcase/mm2ocp:v0.0.2
+</code></pre></div>
+
+<p>Then using a deployment configuration like <a href="https://github.com/jbcodeforce/kp-data-replication/blob/master/mirror-maker-2/mm2-deployment.yaml">this one</a>, we can deploy our custom mirror maker 2 with:</p>
+<div class="codehilite"><pre><span></span><code>oc apply -f mm2-deployment.yaml
+<span class="c1"># to assess the cluster </span>
+oc get kafkamirrormaker2
+NAME          DESIRED REPLICAS
+mm2-cluster   <span class="m">1</span>
+</code></pre></div>
+
+<h3 id="define-the-monitoring-rules">Define the monitoring rules</h3>
+<p>As explained in the <a href="../monitoring/">monitoring note</a>, we need to define the Prometheus rules within a <a href="https://github.com/jbcodeforce/kp-data-replication/blob/master/mirror-maker-2/mm2-jmx-exporter.yaml">yaml file</a> so that Mirror Maker 2 can report metrics:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">lowercaseOutputName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">lowercaseOutputLabelNames</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">rules</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">pattern </span><span class="p">:</span> <span class="s">&quot;kafka.connect&lt;type=connect-worker-metrics&gt;([^:]+):&quot;</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;kafka_connect_connect_worker_metrics_$1&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="nt">pattern </span><span class="p">:</span> <span class="s">&quot;kafka.connect&lt;type=connect-metrics,</span><span class="nv"> </span><span class="s">client-id=([^:]+)&gt;&lt;&gt;([^:]+)&quot;</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;kafka_connect_connect_metrics_$1_$2&quot;</span>   
+  <span class="c1"># Rules below match the Kafka Connect/MirrorMaker MBeans in the jconsole order</span>
+  <span class="c1"># Worker task states</span>
+  <span class="p p-Indicator">-</span> <span class="nt">pattern</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kafka.connect&lt;type=connect-worker-metrics, connector=(\w+)&gt;&lt;&gt;(connector-destroyed-task-count|connector-failed-task-count|connector-paused-task-count|connector-running-task-count|connector-total-task-count|connector-unassigned-task-count)</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">connect_worker_metrics_$1_$2</span>
+  <span class="c1"># Task metrics</span>
+  <span class="p p-Indicator">-</span> <span class="nt">pattern</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kafka.connect&lt;type=connector-task-metrics, connector=(\w+), task=(\d+)&gt;&lt;&gt;(batch-size-avg|batch-size-max|offset-commit-avg-time-ms|offset-commit-failure-percentage|offset-commit-max-time-ms|offset-commit-success-percentage|running-ratio)</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">connect_connector_task_metrics_$1_$3</span>
+    <span class="nt">labels</span><span class="p">:</span>
+       <span class="nt">task</span><span class="p">:</span> <span class="s">&quot;$2&quot;</span>
+  <span class="c1"># Source task metrics</span>
+  <span class="p p-Indicator">-</span> <span class="nt">pattern</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kafka.connect&lt;type=source-task-metrics, connector=(\w+), task=(\d+)&gt;&lt;&gt;(source-record-active-count|source-record-poll-total|source-record-write-total)</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">connect_source_task_metrics_$1_$3</span>
+    <span class="nt">labels</span><span class="p">:</span>
+       <span class="nt">task</span><span class="p">:</span> <span class="s">&quot;$2&quot;</span>
+  <span class="c1"># Task errors</span>
+  <span class="p p-Indicator">-</span> <span class="nt">pattern</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kafka.connect&lt;type=task-error-metrics, connector=(\w+), task=(\d+)&gt;&lt;&gt;(total-record-errors|total-record-failures|total-records-skipped|total-retries)</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">connect_task_error_metrics_$1_$3</span>
+    <span class="nt">labels</span><span class="p">:</span>
+      <span class="nt">task</span><span class="p">:</span> <span class="s">&quot;$2&quot;</span>
+  <span class="c1"># CheckpointConnector metrics </span>
+  <span class="p p-Indicator">-</span> <span class="nt">pattern</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kafka.connect.mirror&lt;type=MirrorCheckpointConnector, source=(.+), target=(.+), group=(.+), topic=(.+), partition=(\d+)&gt;&lt;&gt;(checkpoint-latency-ms)</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">connect_mirror_mirrorcheckpointconnector_$6</span>
+    <span class="nt">labels</span><span class="p">:</span>
+       <span class="nt">source</span><span class="p">:</span> <span class="s">&quot;$1&quot;</span>
+       <span class="nt">target</span><span class="p">:</span> <span class="s">&quot;$2&quot;</span>
+       <span class="nt">group</span><span class="p">:</span> <span class="s">&quot;$3&quot;</span>
+       <span class="nt">topic</span><span class="p">:</span> <span class="s">&quot;$4&quot;</span>
+       <span class="nt">partition</span><span class="p">:</span> <span class="s">&quot;$5&quot;</span>
+  <span class="c1"># SourceConnector metrics</span>
+  <span class="p p-Indicator">-</span> <span class="nt">pattern</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kafka.connect.mirror&lt;type=MirrorSourceConnector, target=(.+), topic=(.+), partition=(\d+)&gt;&lt;&gt;(byte-rate|byte-count|record-age-ms|record-rate|record-count|replication-latency-ms)</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">connect_mirror_mirrorsourceconnector_$4</span>
+    <span class="nt">labels</span><span class="p">:</span>
+       <span class="nt">target</span><span class="p">:</span> <span class="s">&quot;$1&quot;</span>
+       <span class="nt">topic</span><span class="p">:</span> <span class="s">&quot;$2&quot;</span>
+       <span class="nt">partition</span><span class="p">:</span> <span class="s">&quot;$3&quot;</span>
+</code></pre></div>
+
+<p>Then upload this <code>yaml</code> file in a secret (the following command, represents a trick to update an existing configmap)</p>
+<div class="codehilite"><pre><span></span><code>oc create secret generic mm2-jmx-exporter --from-file<span class="o">=</span>./mm2-jmx-exporter.yaml
+</code></pre></div>
+
+<h2 id="deploying-on-vm">Deploying on VM</h2>
+<p>On virtual machine, it is possible to deploy the Apache Kafka 2.4+ binary file and then use the command <code>/opt/kafka/bin/connect-mirror-maker.sh</code> with the good properties file as argument. We are documenting the VM installation process in <a href="../vm-provisioning/">this article</a>.</p>
+<p>Within a VM we can run multiple mirror maker instances. When needed we can add more VMs to scale horizontally.</p>
+<h2 id="deploying-mirror-maker-2-on-its-own-project">Deploying Mirror Maker 2 on its own project</h2>
+<p>In this section we address another approach to, deploy a Kafka Connect cluster with Mirror Maker 2.0 connectors but without any local Kafka Cluster. The approach may be used with Event Streams on Cloud as backend Kafka cluster and Mirror Maker 2 for replication.</p>
+<p>Using the Strimzi operator we need to define a Yaml file for the connector and white and black lists for the topics to replicate. Here is an <a href="">example of such descriptor</a>.</p>
+<p>If we need to run a custom Mirror Maker 2, we have documented in <a href="#">the section above</a> on how to use Dockerfile and properties file and deployment descriptor to do the deployment on kubernetes or OpenShift cluster.</p>
+<h2 id="provisioning-automation">Provisioning automation</h2>
+<p>For IT operation automation we can use <a href="https://www.ansible.com/resources/videos/quick-start-video">Ansible</a> to define a playbook to provision the Mirror Maker 2 environment. The <a href="https://github.com/rmarting/strimzi-ansible-playbook">Strimzi Ansible playbook</a> repository containts playbook examples for creating cluster roles and service accounts and deploy operators.</p>
+<p>The automation approach will include:</p>
+<ul>
+<li>Deploy all cluster objects needed into a OpenShift cluster: Cluster Roles, Strimzi CRDs: Kafka, KafkaTopic, KafkaUser, Kafka connect, mirror maker(s).</li>
+<li>Deploy all namespaced objects needed into an OpenShift namespace: Service Accounts, Cluster Role Bindings and Role Bindings, Cluster Operator deployment.</li>
+<li>Deploy the kafka cluster if needed.</li>
+<li>Deploy the different mirror maker 2 instances.</li>
+</ul>
+<h2 id="typical-errors-in-mirror-maker-2-traces">Typical errors in Mirror Maker 2 traces</h2>
+<ul>
+<li>Plugin class loader for connector: 'org.apache.kafka.connect.mirror.MirrorCheckpointConnector' was not found. <ul>
+<li>This error message is a light issue in kafka 2.4 and does not impact the replication. In Kafka 2.5 this message is for DEBUG logs.</li>
+</ul>
+</li>
+<li>Error while fetching metadata with correlation id 2314 : {source.heartbeats=UNKNOWN_TOPIC_OR_PARTITION}:<ul>
+<li>Those messages may come from multiple reasons. One is that the named topic is not created. In Event Streams is the target cluster the topics may need to be created via CLI or User Interface. It can also being related to the fact the consumer polls on a topic that has just been created and the leader for this topic-partition is not yet available, you are in the middle of a leadership election.</li>
+<li>The advertised listener may not be set or found.</li>
+</ul>
+</li>
+<li>Exception on not being able to create Log directory: do the following: <code>export LOG_DIR=/tmp/logs</code></li>
+<li>ERROR WorkerSourceTask{id=MirrorSourceConnector-0} Failed to flush, timed out while waiting for producer to flush outstanding 1 messages</li>
+<li>ERROR WorkerSourceTask{id=MirrorSourceConnector-0} Failed to commit offsets (org.apache.kafka.connect.runtime.SourceTaskOffsetCommitter:114)</li>
+</ul>
+<p><strong>Some useful commands</strong></p>
+<ul>
+<li>Connect to local cluster: <code>oc exec -ti eda-demo-24-cluster-kafka-0 bash</code></li>
+<li>list the topics: <code>./kafka-topics.sh --bootstrap-server eda-demo-24-cluster-kafka-bootstrap:9092 --list</code></li>
+<li>Get the description of the topics from one cluster:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="err"> for t in $(./kafka-topics.sh --bootstrap-server eda-demo-24-cluster-kafka-bootstrap:9092 --list)</span>
+<span class="err"> do </span>
+<span class="err"> ./kafka-topics.sh --bootstrap-server eda-demo-24-cluster-kafka-bootstrap:9092 --describe --topic $t</span>
+<span class="err"> done</span>
+</code></pre></div>
+
+<h2 id="create-mm2-topics-manually">Create MM2 topics manually</h2>
+<p>Here are some examples of command to create topic to the target cluster</p>
+<p>If you want to delete the topic on your local cluster
+<div class="codehilite"><pre><span></span><code><span class="err"> for t in $(/opt/kafka/bin/kafka-topics.sh --bootstrap-server eda-demo-24-cluster-kafka-bootstrap:9092 --list)</span>
+<span class="err"> do </span>
+<span class="err"> ./kafka-topics.sh --bootstrap-server eda-demo-24-cluster-kafka-bootstrap:9092 --delete --topic $t</span>
+<span class="err"> done</span>
+</code></pre></div></p>
+<p>To create the topics manually on the target cluster:exit</p>
+<div class="codehilite"><pre><span></span><code><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">kafka</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">kafka</span><span class="o">-</span><span class="n">topics</span><span class="p">.</span><span class="n">sh</span> <span class="c1">--bootstrap-server eda-demo-24-cluster-kafka-bootstrap:9092 --create --partitions 5 --topic mm2-offset-syncs.kafka-on-premise-cluster-source.internal</span>
+
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">kafka</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">kafka</span><span class="o">-</span><span class="n">topics</span><span class="p">.</span><span class="n">sh</span> <span class="c1">--bootstrap-server eda-demo-24-cluster-kafka-bootstrap:9092 --create  --partitions 5 --replication-factor 3 --topic mirrormaker2-cluster-status</span>
+
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">kafka</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">kafka</span><span class="o">-</span><span class="n">topics</span><span class="p">.</span><span class="n">sh</span> <span class="c1">--bootstrap-server eda-demo-24-cluster-kafka-bootstrap:9092 --create  --partitions 25 --replication-factor 3 --topic mirrormaker2-cluster-offsets</span>
+
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">kafka</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">kafka</span><span class="o">-</span><span class="n">topics</span><span class="p">.</span><span class="n">sh</span> <span class="c1">--bootstrap-server eda-demo-24-cluster-kafka-bootstrap:9092 --create  --partitions 1 --replication-factor 3  --topic mirrormaker2-cluster-configs</span>
+
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">kafka</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">kafka</span><span class="o">-</span><span class="n">topics</span><span class="p">.</span><span class="n">sh</span> <span class="c1">--bootstrap-server eda-demo-24-cluster-kafka-bootstrap:9092 --create  --partitions 1 --replication-factor 3  --topic heartbeats</span>
+
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">kafka</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">kafka</span><span class="o">-</span><span class="n">topics</span><span class="p">.</span><span class="n">sh</span> <span class="c1">--bootstrap-server eda-demo-24-cluster-kafka-bootstrap:9092 --create  --partitions 1 --replication-factor 1  --topic  event-streams-wdc.checkpoints.internal</span>
+</code></pre></div>
+                
+                  
+                
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../provisioning/" title="Strimzi Kafka 2.4 Provisioning on Openshift" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Strimzi Kafka 2.4 Provisioning on Openshift
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../vm-provisioning/" title="VM MirrorMaker 2 provisioning" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                VM MirrorMaker 2 provisioning
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.c33a9706.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>
